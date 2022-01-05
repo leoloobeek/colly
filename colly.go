@@ -498,6 +498,12 @@ func (c *Collector) PostMultipart(URL string, requestData map[string][]byte) err
 	return c.scrape(URL, "POST", 1, createMultipartReader(boundary, requestData), nil, hdr, true)
 }
 
+// PutRaw starts a collector job by creating a PUT request with raw binary data.
+// Put also calls the previously provided callbacks
+func (c *Collector) PutRaw(URL string, requestData []byte) error {
+	return c.scrape(URL, "PUT", 1, bytes.NewReader(requestData), nil, nil, true)
+}
+
 // Request starts a collector job by creating a custom HTTP request
 // where method, context, headers and request data can be specified.
 // Set requestData, ctx, hdr parameters to nil if you don't want to use them.
